@@ -14,18 +14,18 @@
             "use": "@vercel/static"
         }
     ],
-    "routes": [
+    "rewrites": [
         {
-            "src": "/models/(.*)",
-            "dest": "/models/$1"
+            "source": "/models/:path*",
+            "destination": "/models/:path*"
         },
         {
-            "src": "/icons/(.*)",
-            "dest": "/icons/$1"
+            "source": "/icons/:path*",
+            "destination": "/icons/:path*"
         },
         {
-            "src": "/(.*)",
-            "dest": "/public/$1"
+            "source": "/:path*",
+            "destination": "/public/:path*"
         }
     ],
     "headers": [
