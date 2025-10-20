@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Test FaceAPI Model</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+</head>
+
+<body>
+    <h2>Kiểm tra model face-api.js</h2>
+    <div id="status">Đang tải model...</div>
+
+    <script>
+        const MODEL_URL = "./models";
+        async function testModel() {
+            try {
+                document.getElementById("status").innerText = "⏳ Đang tải model...";
+                await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+                await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+                document.getElementById("status").innerText = "✅ Model đã tải thành công!";
+            } catch (e) {
+                document.getElementById("status").innerText =
+                    "❌ Không thể tải model. Kiểm tra thư mục hoặc file model.";
+                console.error(e);
+            }
+        }
+        window.onload = testModel;
+    </script>
+</body>
+
+</html>

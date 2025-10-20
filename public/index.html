@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Emotion Web (Pure HTML/CSS/JS)</title>
+    <link rel="stylesheet" href="./style.css" />
+    <!-- face-api.js UMD build (exposes global `faceapi`) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    <script defer src="./script.js"></script>
+</head>
+
+<body>
+    <header class="header">
+        <img src="../icons/logo.png" alt="logo" class="logo" />
+    </header>
+
+    <main class="container">
+        <div class="video-box">
+            <video id="video" autoplay playsinline></video>
+        </div>
+
+        <button id="btnCapture" class="btn" disabled>📸 Chụp ảnh & phân tích cảm xúc</button>
+
+        <!-- Modal popup (hidden by default) -->
+        <div id="popup" class="modal hidden" aria-hidden="true" style="display:none;">
+            <div class="modal-content">
+                <div class="left">
+                    <img id="snapshot" class="snapshot" alt="snapshot" />
+                </div>
+
+                <div class="right">
+                    <img id="emoIcon" class="emo-icon" alt="" />
+                    <div id="emoLabel" class="emo-label">…</div>
+
+                    <div id="titleAsk" class="title-ask blink">Bạn có muốn nhận thông điệp không? ✨</div>
+
+                    <div class="letter-row">
+                        <img id="letter" src="../icons/thongdiep.gif" class="letter wiggle" alt="letter" />
+                        <div class="pointer pulse">👈</div>
+                    </div>
+
+                    <div id="msgBox" class="msg hidden"></div>
+
+                    <button id="btnClose" class="btn btn-light">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <canvas id="canvas" class="hidden"></canvas>
+</body>
+
+</html>
