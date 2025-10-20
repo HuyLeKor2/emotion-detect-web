@@ -1,7 +1,6 @@
 // ====== CẤU HÌNH ======
-// Use absolute paths so requests go to /models and /icons at server root.
-// When serving project from workspace root, /models maps to the models folder.
-const MODEL_URL = "models";
+// Use CDN-hosted model weights per user request
+const MODEL_URL = "https://cdn.jsdelivr.net/gh/cgarciagl/face-api.js/weights";
 
 // Bản đồ label VN + message
 const EMO_LABEL = {
