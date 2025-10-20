@@ -26,6 +26,13 @@
         },
         {
             "source": "/(.*)",
+            "has": [
+                {
+                    "type": "header",
+                    "key": "accept",
+                    "value": "text/html"
+                }
+            ],
             "destination": "/public/index.html"
         }
     ],
