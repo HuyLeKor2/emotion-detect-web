@@ -258,6 +258,8 @@ async function captureAndAnalyze() {
         const ctx = canvas.getContext("2d");
         ctx.drawImage(video, sx, sy, minEdge, minEdge, 0, 0, minEdge, minEdge);
         const dataUrl = canvas.toDataURL("image/jpeg", 0.9);
+        // Show the original captured square image in the popup.
+        // Keep this as the snapshot displayed to the user.
         snapshot.src = dataUrl;
 
         // detect
@@ -333,7 +335,10 @@ async function captureAndAnalyze() {
         emoIcon.src = EMO_ICON[key] || "";
         emoLabel.textContent = EMO_LABEL[key] || EMO_LABEL.unknown;
 
-        // Crop the face ROI from canvas to match Python snapshot behavior
+        // Crop the face ROI from canvas for internal use (e.g., if you want to
+        // save/send the face crop). Important: do NOT overwrite the visible
+        // `snapshot.src` — keep showing the original captured image to the user.
+        let faceCropDataUrl = null;
         try {
             const box = biggest.detection.box;
             const faceCanvas = document.createElement('canvas');
@@ -342,10 +347,11 @@ async function captureAndAnalyze() {
             // source coordinates were drawn centered into canvas earlier using sx,sy
             // our canvas is the cropped square, so box.x and box.y are relative to canvas
             fctx.drawImage(canvas, box.x, box.y, box.width, box.height, 0, 0, box.width, box.height);
-            snapshot.src = faceCanvas.toDataURL('image/jpeg', 0.9);
+            faceCropDataUrl = faceCanvas.toDataURL('image/jpeg', 0.9);
+            // If you later want to display the crop instead, set snapshot.src = faceCropDataUrl;
         } catch (e) {
-            // fallback to full canvas
-            snapshot.src = canvas.toDataURL('image/jpeg', 0.9);
+            // fallback: keep original captured image visible; store the full canvas data if needed
+            faceCropDataUrl = canvas.toDataURL('image/jpeg', 0.9);
         }
 
         // click phong bì để lộ thông điệp tương ứng
