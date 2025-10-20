@@ -3,11 +3,11 @@
     "rewrites": [
         {
             "source": "/models/:path*",
-            "destination": "/models/:path*"
+            "destination": "/public/models/:path*"
         },
         {
             "source": "/icons/:path*",
-            "destination": "/icons/:path*"
+            "destination": "/public/icons/:path*"
         },
         {
             "source": "/(.*)",
