@@ -378,6 +378,57 @@ async function captureAndAnalyze() {
 }
 
 // ====== EVENTS ======
+// Soft restart helper: when user wants to 'restart' the app without reloading the page
+async function restartApp() {
+    try {
+        // If a popup is visible, hide it (acts like pressing the close button)
+        if (popupShown) {
+            hidePopup();
+            return;
+        }
+
+        // stop existing camera tracks if any
+        if (video && video.srcObject) {
+            try {
+                const tracks = video.srcObject.getTracks();
+                tracks.forEach(t => t.stop());
+            } catch (e) {
+                console.warn('[restart] stop tracks failed', e);
+            }
+            video.srcObject = null;
+        }
+
+        // reset some internal flags and UI
+        detecting = false;
+        videoReady = false;
+        popupShown = false;
+        resetPopupUI();
+        btnCapture.disabled = true;
+
+        // re-run initialization (re-acquire camera and re-check models)
+        await init();
+    } catch (e) {
+        console.error('[restart] failed', e);
+    }
+}
+
+// 'r' key: act like close popup or restart app (but not a full page reload)
+window.addEventListener('keydown', (ev) => {
+    // ignore when user is typing into an input or textarea or contenteditable
+    const active = document.activeElement;
+    const tag = active && active.tagName ? active.tagName.toLowerCase() : '';
+    const isTyping = active && (active.isContentEditable || tag === 'input' || tag === 'textarea');
+    if (isTyping) return;
+
+    if (ev.key === 'r' || ev.key === 'R') {
+        ev.preventDefault();
+        // call restartApp (it may be async, don't block)
+        restartApp();
+    }
+});
+
+
+
 btnCapture.addEventListener("click", captureAndAnalyze);
 
 // Space: giống Python — đang mở popup thì đóng, ngược lại thì chụp
