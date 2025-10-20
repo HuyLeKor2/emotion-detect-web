@@ -231,10 +231,10 @@ async function init() {
 // ====== EMOTION HELPERS ======
 function mapTopEmotion(expressions) {
     const mapped = {
-        happy: expressions.happy ?? 0,
-        sad: expressions.sad ?? 0,
-        angry: expressions.angry ?? 0,
-        fear: expressions.fearful ?? (expressions.fear ?? 0)
+        happy: expressions.happy || 0,
+        sad: expressions.sad || 0,
+        angry: expressions.angry || 0,
+        fear: (expressions.fearful || expressions.fear) || 0
     };
     let key = "unknown", score = 0;
     Object.entries(mapped).forEach(([k, v]) => { if (v > score) { score = v; key = k; } });
