@@ -1,7 +1,7 @@
 // ====== CẤU HÌNH ======
 // Use absolute paths so requests go to /models and /icons at server root.
 // When serving project from workspace root, /models maps to the models folder.
-const MODEL_URL = "/models";
+const MODEL_URL = "models";
 
 // Bản đồ label VN + message
 const EMO_LABEL = {
@@ -12,10 +12,10 @@ const EMO_LABEL = {
     unknown: "Thử lại nhen 😕"
 };
 const EMO_ICON = {
-    happy: "/icons/happy.gif",
-    sad: "/icons/sad.gif",
-    angry: "/icons/angry.gif",
-    fear: "/icons/fear.gif",
+    happy: "icons/happy.gif",
+    sad: "icons/sad.gif",
+    angry: "icons/angry.gif",
+    fear: "icons/fear.gif",
     unknown: "" // không icon
 };
 const EMO_MSG = {
