@@ -1,19 +1,5 @@
 {
-    "version": 2,
-    "builds": [
-        {
-            "src": "public/**",
-            "use": "@vercel/static"
-        },
-        {
-            "src": "models/**",
-            "use": "@vercel/static"
-        },
-        {
-            "src": "icons/**",
-            "use": "@vercel/static"
-        }
-    ],
+    "$schema": "https://openapi.vercel.sh/vercel.json",
     "rewrites": [
         {
             "source": "/models/:path*",
@@ -24,13 +10,13 @@
             "destination": "/icons/:path*"
         },
         {
-            "source": "/:path*",
-            "destination": "/index.html"
+            "source": "/(.*)",
+            "destination": "/public/index.html"
         }
     ],
     "headers": [
         {
-            "source": "/models/(.*)",
+            "source": "/public/models/(.*)",
             "headers": [
                 {
                     "key": "Cache-Control",
